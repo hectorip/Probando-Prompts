@@ -1,0 +1,37 @@
+# Learn more about building a configuration: https://promptfoo.dev/docs/configuration/guide
+description: 'Evaluación de prueba en CF'
+
+prompts:
+  - "Dame ideas de proyectos apra hacer con LLM basados en la industria {{industry}}"
+  - "Dame 5 ideas concisas para hacer mi proyecto final del curso con LLM's en formato JSON basadas en la industria {{industry}}"
+  
+
+providers:
+  - "openai:gpt-3.5-turbo"
+  - "openai:gpt-4o"
+  
+
+tests:
+  - vars:
+      industry: financiera 
+
+  - vars:
+      industry: hotelera
+    assert:
+      # For more information on assertions, see https://promptfoo.dev/docs/configuration/expected-outputs
+
+      # Make sure output contains the word "avocado"
+      - type: icontains
+        value: cotorro
+
+      # Prefer shorter outputs
+      - type: javascript
+        value: 1 / (output.length + 1)
+
+  - vars:
+      industry: educativa
+    assert:
+      # For more information on model-graded evals, see https://promptfoo.dev/docs/configuration/expected-outputs/model-graded
+      - type: llm-rubric
+        value: asegúrate de que las ideas sean factibles y divertidas 
+

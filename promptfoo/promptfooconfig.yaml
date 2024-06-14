@@ -3,29 +3,30 @@
 description: 'Evaluando con promptfoo'
 
 prompts:
-  - "Write a tweet about {{topic}}"
-  - "Write a very concise, funny tweet about {{topic}}"
+  - "Dame ideas para hacer mi proyecto final de arquitectura de software de la industria {{industria}}"
+  - "Describe 5 proyectos que puedan servir para mi proyecto del curso de arquitectura de software, tienen que ser muy pequeños  y fáciles de programar porque me tengo que enfocar en la parte de la estrategia, dame el resultado en JSON y enfócate en la industria {{industria}}"
+
 
 providers:
-  - openai:gpt-3.5-turbo-0613
-  - openai:gpt-4
+  - openai:chat:gpt-3.5-turbo
+  - openai:chat:gpt-4o
 
 tests:
   - vars:
-      topic: bananas
+      topic: financiera
 
   - vars:
-      topic: avocado toast
+      topic: de servicios para startups
     assert:
       # For more information on assertions, see https://promptfoo.dev/docs/configuration/expected-outputs
       - type: icontains
-        value: avocado
+        value: startups 
       - type: javascript
         value: 1 / (output.length + 1)  # prefer shorter outputs
 
   - vars:
-      topic: new york city
+      topic: hoteles
     assert:
       # For more information on model-graded evals, see https://promptfoo.dev/docs/configuration/expected-outputs/model-graded
       - type: llm-rubric
-        value: ensure that the output is funny
+        value: asegúrata de que los proyectos son sencillos
